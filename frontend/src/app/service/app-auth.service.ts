@@ -1,30 +1,36 @@
 import { Injectable } from '@angular/core';
-import { AppRoles } from '../../app.roles';
+
+import { KeycloakService } from './keycloak.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppAuthService {
 
-  private roles: string[] = [
-    AppRoles.Read,
-    AppRoles.Update,
-    AppRoles.Admin
-  ];
+  constructor(private keycloakService: KeycloakService) {
+  }
 
   isLoggedIn(): boolean {
-    return true;
+    return this.keycloakService.isLoggedIn();
   }
 
   hasRole(role: string): boolean {
-    return this.roles.includes(role);
+    return this.keycloakService.hasRole(role);
   }
 
   hasAnyRole(roles: string[]): boolean {
-    return roles.some(role => this.hasRole(role));
+    return this.keycloakService.hasAnyRole(roles);
   }
 
   getRoles(): string[] {
-    return this.roles;
+    return this.keycloakService.getRoles();
+  }
+
+  login(): void {
+    this.keycloakService.login();
+  }
+
+  logout(): void {
+    this.keycloakService.logout();
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Report } from '../dataaccess/report';
+import { TimeEntry } from '../dataaccess/time-entry';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -15,11 +15,11 @@ export class ReportService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Report[]> {
-    return this.http.get<Report[]>(this.apiUrl);
+  getAll(): Observable<TimeEntry[]> {
+    return this.http.get<TimeEntry[]>(`${this.apiUrl}/all`);
   }
 
-  getByUserId(userId: number): Observable<Report[]> {
-    return this.http.get<Report[]>(`${this.apiUrl}/user/${userId}`);
+  getByUserId(userId: number): Observable<TimeEntry[]> {
+    return this.http.get<TimeEntry[]>(`${this.apiUrl}/user/${userId}`);
   }
 }

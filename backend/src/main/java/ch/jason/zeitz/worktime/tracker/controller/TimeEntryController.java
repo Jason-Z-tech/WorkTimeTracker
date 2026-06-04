@@ -31,15 +31,22 @@ public class TimeEntryController {
     }
 
     @Operation(
-            summary = "Zeiteintrag nach ID abrufen",
-            description = "Gibt einen einzelnen Zeiteintrag anhand seiner ID zurück. Benutzer mit ROLE_read, ROLE_update oder ROLE_admin dürfen diese Funktion verwenden."
+            summary = "Alle Zeiteinträge abrufen",
+            description = "Gibt alle Zeiteinträge zurück. Benutzer mit ROLE_read, ROLE_update oder ROLE_admin dürfen diese Funktion verwenden."
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Zeiteintrag erfolgreich gefunden"),
+            @ApiResponse(responseCode = "200", description = "Zeiteinträge erfolgreich geladen"),
             @ApiResponse(responseCode = "401", description = "Nicht authentifiziert"),
-            @ApiResponse(responseCode = "403", description = "Keine Berechtigung"),
-            @ApiResponse(responseCode = "404", description = "Zeiteintrag nicht gefunden")
+            @ApiResponse(responseCode = "403", description = "Keine Berechtigung")
     })
+    @PreAuthorize("hasAnyAuthority('ROLE_read','ROLE_update','ROLE_admin')")
+    @GetMapping
+    public List<TimeEntryResponseDto> getAllTimeEntries() {
+        return timeEntryService.getAllTimeEntries()
+                .stream()
+                .map(DtoMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
     @PreAuthorize("hasAnyAuthority('ROLE_read','ROLE_update','ROLE_admin')")
     @GetMapping("/{id}")
     public TimeEntryResponseDto getTimeEntryById(

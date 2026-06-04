@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 import { AppUser } from '../../dataaccess/app-user';
 import { UserService } from '../../service/user.service';
@@ -24,7 +25,8 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    public authService: AppAuthService
+    public authService: AppAuthService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -36,16 +38,21 @@ export class UserListComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.userService.getAll().subscribe({
-      next: (users) => {
-        this.users = users;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Die Benutzer konnten nicht geladen werden.';
-        this.isLoading = false;
-      }
-    });
+    this.userService.getAll()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (users) => {
+          this.users = users;
+        },
+        error: () => {
+          this.errorMessage = 'Die Benutzer konnten nicht geladen werden.';
+        }
+      });
   }
 
   deleteUser(id: number): void {

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { finalize } from 'rxjs';
 
-import { Report } from '../../dataaccess/report';
+import { TimeEntry } from '../../dataaccess/time-entry';
 import { ReportService } from '../../service/report.service';
 
 @Component({
@@ -13,11 +14,14 @@ import { ReportService } from '../../service/report.service';
 })
 export class ReportListComponent implements OnInit {
 
-  reports: Report[] = [];
+  reports: TimeEntry[] = [];
   isLoading = false;
   errorMessage = '';
 
-  constructor(private reportService: ReportService) {
+  constructor(
+    private reportService: ReportService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
   }
 
   ngOnInit(): void {
@@ -28,20 +32,25 @@ export class ReportListComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.reportService.getAll().subscribe({
-      next: (reports) => {
-        this.reports = reports;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Die Reports konnten nicht geladen werden.';
-        this.isLoading = false;
-      }
-    });
+    this.reportService.getAll()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (reports) => {
+          this.reports = reports;
+        },
+        error: () => {
+          this.errorMessage = 'Die Reports konnten nicht geladen werden.';
+        }
+      });
   }
 
-  getHours(totalMinutes: number): string {
-    const hours = totalMinutes / 60;
+  getHours(durationMinutes: number): string {
+    const hours = durationMinutes / 60;
     return hours.toFixed(2);
   }
 }

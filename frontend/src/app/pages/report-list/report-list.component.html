@@ -1,7 +1,7 @@
 <section class="page-header">
   <div>
     <h1>Reports</h1>
-    <p>Hier werden die Arbeitszeiten pro Benutzer und Projekt ausgewertet.</p>
+    <p>Hier werden die erfassten Arbeitszeiten ausgewertet.</p>
   </div>
 </section>
 
@@ -21,22 +21,26 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Benutzer-ID</th>
-        <th>Benutzername</th>
+        <th>ID</th>
+        <th>Benutzer</th>
         <th>Projekt</th>
-        <th>Minuten total</th>
-        <th>Stunden total</th>
+        <th>Startzeit</th>
+        <th>Endzeit</th>
+        <th>Minuten</th>
+        <th>Stunden</th>
       </tr>
     </thead>
 
     <tbody>
-      @for (report of reports; track report.userId + '-' + report.projectName) {
+      @for (report of reports; track report.id) {
         <tr>
-          <td>{{ report.userId }}</td>
-          <td>{{ report.username }}</td>
-          <td>{{ report.projectName }}</td>
-          <td>{{ report.totalMinutes }}</td>
-          <td>{{ getHours(report.totalMinutes) }} h</td>
+          <td>{{ report.id }}</td>
+          <td>{{ report.user.username }}</td>
+          <td>{{ report.project.name }}</td>
+          <td>{{ report.startTime }}</td>
+          <td>{{ report.endTime }}</td>
+          <td>{{ report.durationMinutes }}</td>
+          <td>{{ getHours(report.durationMinutes) }} h</td>
         </tr>
       }
     </tbody>

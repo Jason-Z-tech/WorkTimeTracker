@@ -15,10 +15,10 @@ export class AppLoginComponent {
   }
 
   login(): void {
-    alert('Später wird hier der Keycloak-Login gestartet.');
+    this.authService.login();
   }
 
   logout(): void {
-    alert('Später wird hier der Keycloak-Logout ausgeführt.');
+    this.authService.logout();
   }
 }

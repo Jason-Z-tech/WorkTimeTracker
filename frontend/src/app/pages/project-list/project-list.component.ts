@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 import { Project } from '../../dataaccess/project';
 import { ProjectService } from '../../service/project.service';
@@ -24,7 +25,8 @@ export class ProjectListComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    public authService: AppAuthService
+    public authService: AppAuthService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -36,16 +38,21 @@ export class ProjectListComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.projectService.getAll().subscribe({
-      next: (projects) => {
-        this.projects = projects;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Die Projekte konnten nicht geladen werden.';
-        this.isLoading = false;
-      }
-    });
+    this.projectService.getAll()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (projects) => {
+          this.projects = projects;
+        },
+        error: () => {
+          this.errorMessage = 'Die Projekte konnten nicht geladen werden.';
+        }
+      });
   }
 
   deleteProject(id: number): void {

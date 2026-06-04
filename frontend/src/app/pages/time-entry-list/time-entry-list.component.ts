@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 import { TimeEntry } from '../../dataaccess/time-entry';
 import { TimeEntryService } from '../../service/time-entry.service';
@@ -24,7 +25,8 @@ export class TimeEntryListComponent implements OnInit {
 
   constructor(
     private timeEntryService: TimeEntryService,
-    public authService: AppAuthService
+    public authService: AppAuthService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -36,16 +38,21 @@ export class TimeEntryListComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.timeEntryService.getAll().subscribe({
-      next: (timeEntries) => {
-        this.timeEntries = timeEntries;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Die Zeiteinträge konnten nicht geladen werden.';
-        this.isLoading = false;
-      }
-    });
+    this.timeEntryService.getAll()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (timeEntries) => {
+          this.timeEntries = timeEntries;
+        },
+        error: () => {
+          this.errorMessage = 'Die Zeiteinträge konnten nicht geladen werden.';
+        }
+      });
   }
 
   deleteTimeEntry(id: number): void {

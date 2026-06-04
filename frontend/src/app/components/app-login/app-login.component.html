@@ -1,6 +1,9 @@
 <div class="login-box">
-  <p>Angemeldet: Ja</p>
-
-  <button type="button" (click)="login()">Login</button>
-  <button type="button" (click)="logout()">Logout</button>
+  @if (authService.isLoggedIn()) {
+    <p>Angemeldet: Ja</p>
+    <button type="button" (click)="logout()">Logout</button>
+  } @else {
+    <p>Angemeldet: Nein</p>
+    <button type="button" (click)="login()">Login</button>
+  }
 </div>

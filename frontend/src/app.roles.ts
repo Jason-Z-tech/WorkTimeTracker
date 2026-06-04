@@ -1,5 +1,5 @@
 export class AppRoles {
-  static Read = 'read';
-  static Update = 'update';
-  static Admin = 'admin';
+  static Read = 'ROLE_read';
+  static Update = 'ROLE_update';
+  static Admin = 'ROLE_admin';
 }
