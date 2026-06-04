@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 
 import { Project } from '../../dataaccess/project';
 import { ProjectService } from '../../service/project.service';
+import { AppAuthService } from '../../service/app-auth.service';
+import { AppRoles } from '../../../app.roles';
 
 @Component({
   selector: 'app-project-list',
@@ -18,7 +20,12 @@ export class ProjectListComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private projectService: ProjectService) {
+  roles = AppRoles;
+
+  constructor(
+    private projectService: ProjectService,
+    public authService: AppAuthService
+  ) {
   }
 
   ngOnInit(): void {

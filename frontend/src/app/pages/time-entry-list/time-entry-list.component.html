@@ -4,7 +4,9 @@
     <p>Hier werden alle erfassten Arbeitszeiten angezeigt.</p>
   </div>
 
-  <a class="button" routerLink="/time-entries/new">Neuer Zeiteintrag</a>
+  @if (authService.hasAnyRole([roles.Update, roles.Admin])) {
+    <a class="button" routerLink="/time-entries/new">Neuer Zeiteintrag</a>
+  }
 </section>
 
 @if (isLoading) {
@@ -43,8 +45,12 @@
           <td>{{ entry.endTime }}</td>
           <td>{{ entry.durationMinutes }} Minuten</td>
           <td class="actions">
-            <a routerLink="/time-entries/edit/{{ entry.id }}">Bearbeiten</a>
-            <button type="button" (click)="deleteTimeEntry(entry.id)">Löschen</button>
+            @if (authService.hasAnyRole([roles.Update, roles.Admin])) {
+              <a routerLink="/time-entries/edit/{{ entry.id }}">Bearbeiten</a>
+              <button type="button" (click)="deleteTimeEntry(entry.id)">Löschen</button>
+            } @else {
+              <span>Nur Lesen</span>
+            }
           </td>
         </tr>
       }

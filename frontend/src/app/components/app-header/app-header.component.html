@@ -5,9 +5,17 @@
 
   <nav class="nav">
     <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-    <a routerLink="/projects" routerLinkActive="active">Projekte</a>
-    <a routerLink="/time-entries" routerLinkActive="active">Zeiteinträge</a>
-    <a routerLink="/reports" routerLinkActive="active">Reports</a>
-    <a routerLink="/users" routerLinkActive="active">Benutzer</a>
+
+    @if (authService.hasAnyRole([roles.Read, roles.Update, roles.Admin])) {
+      <a routerLink="/projects" routerLinkActive="active">Projekte</a>
+      <a routerLink="/time-entries" routerLinkActive="active">Zeiteinträge</a>
+      <a routerLink="/reports" routerLinkActive="active">Reports</a>
+    }
+
+    @if (authService.hasRole(roles.Admin)) {
+      <a routerLink="/users" routerLinkActive="active">Benutzer</a>
+    }
   </nav>
+
+  <app-app-login></app-app-login>
 </header>

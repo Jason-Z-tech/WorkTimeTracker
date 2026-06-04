@@ -4,7 +4,9 @@
     <p>Hier werden alle Projekte aus dem Backend angezeigt.</p>
   </div>
 
-  <a class="button" routerLink="/projects/new">Neues Projekt</a>
+  @if (authService.hasRole(roles.Admin)) {
+    <a class="button" routerLink="/projects/new">Neues Projekt</a>
+  }
 </section>
 
 @if (isLoading) {
@@ -45,8 +47,12 @@
             }
           </td>
           <td class="actions">
-            <a routerLink="/projects/edit/{{ project.id }}">Bearbeiten</a>
-            <button type="button" (click)="deleteProject(project.id)">Löschen</button>
+            @if (authService.hasRole(roles.Admin)) {
+              <a routerLink="/projects/edit/{{ project.id }}">Bearbeiten</a>
+              <button type="button" (click)="deleteProject(project.id)">Löschen</button>
+            } @else {
+              <span>Nur Lesen</span>
+            }
           </td>
         </tr>
       }

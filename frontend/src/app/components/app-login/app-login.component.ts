@@ -1,11 +1,24 @@
 import { Component } from '@angular/core';
 
+import { AppAuthService } from '../../service/app-auth.service';
+
 @Component({
   selector: 'app-app-login',
+  standalone: true,
   imports: [],
   templateUrl: './app-login.component.html',
-  styleUrl: './app-login.component.scss',
+  styleUrl: './app-login.component.scss'
 })
 export class AppLoginComponent {
 
+  constructor(public authService: AppAuthService) {
+  }
+
+  login(): void {
+    alert('Später wird hier der Keycloak-Login gestartet.');
+  }
+
+  logout(): void {
+    alert('Später wird hier der Keycloak-Logout ausgeführt.');
+  }
 }

@@ -1,0 +1,19 @@
+.login-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-box p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.login-box button {
+  border: none;
+  background-color: #4b5563;
+  color: white;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}

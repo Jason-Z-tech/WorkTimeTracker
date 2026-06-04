@@ -4,7 +4,9 @@
     <p>Hier werden alle Benutzer aus dem Backend angezeigt.</p>
   </div>
 
-  <a class="button" routerLink="/users/new">Neuer Benutzer</a>
+  @if (authService.hasRole(roles.Admin)) {
+    <a class="button" routerLink="/users/new">Neuer Benutzer</a>
+  }
 </section>
 
 @if (isLoading) {
@@ -37,8 +39,12 @@
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
           <td class="actions">
-            <a routerLink="/users/edit/{{ user.id }}">Bearbeiten</a>
-            <button type="button" (click)="deleteUser(user.id)">Löschen</button>
+            @if (authService.hasRole(roles.Admin)) {
+              <a routerLink="/users/edit/{{ user.id }}">Bearbeiten</a>
+              <button type="button" (click)="deleteUser(user.id)">Löschen</button>
+            } @else {
+              <span>Kein Zugriff</span>
+            }
           </td>
         </tr>
       }

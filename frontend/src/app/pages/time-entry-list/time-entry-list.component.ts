@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 
 import { TimeEntry } from '../../dataaccess/time-entry';
 import { TimeEntryService } from '../../service/time-entry.service';
+import { AppAuthService } from '../../service/app-auth.service';
+import { AppRoles } from '../../../app.roles';
 
 @Component({
   selector: 'app-time-entry-list',
@@ -18,7 +20,12 @@ export class TimeEntryListComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private timeEntryService: TimeEntryService) {
+  roles = AppRoles;
+
+  constructor(
+    private timeEntryService: TimeEntryService,
+    public authService: AppAuthService
+  ) {
   }
 
   ngOnInit(): void {
