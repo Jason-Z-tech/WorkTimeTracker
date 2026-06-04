@@ -1,0 +1,36 @@
+$kind: http-request
+name: Update Time Entry
+url: "{{baseUrl}}/api/time-entries/1"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"startTime\": \"2026-05-04T09:00:00\",\r
+
+    \  \"endTime\": \"2026-05-04T17:00:00\",\r
+
+    \  \"user\": {\r
+
+    \    \"id\": 2,\r
+
+    \    \"username\": \"jason\",\r
+
+    \    \"email\": \"jason@test.ch\"\r
+
+    \  },\r
+
+    \  \"project\": {\r
+
+    \    \"id\": 3,\r
+
+    \    \"name\": \"Projekt A Update\",\r
+
+    \    \"description\": \"Aktualisiertes Testprojekt\",\r
+
+    \    \"active\": true\r
+
+    \  }\r
+
+    }"
+order: 4275121812410294

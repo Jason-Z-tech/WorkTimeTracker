@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Time Entry By ID
+url: "{{baseUrl}}/api/time-entries/1"
+method: GET
+order: 3038581448386322

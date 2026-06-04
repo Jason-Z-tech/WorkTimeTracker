@@ -1,0 +1,8 @@
+$kind: collection
+name: WorkTimeTracker API
+auth:
+  - id: 55f7262b-b3cd-4a9a-8f06-df1b7ab3df45
+    type: bearer
+    name: Bearer Token
+    credentials:
+      token: "{{token}}"

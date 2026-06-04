@@ -1,0 +1,20 @@
+$kind: http-request
+name: Update Project
+url: "{{baseUrl}}/api/projects/1"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Projekt A Update\",\r
+
+    \  \"description\": \"Aktualisiertes Testprojekt\",\r
+
+    \  \"active\": true\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+order: 4329060418472658

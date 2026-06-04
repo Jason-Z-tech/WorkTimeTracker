@@ -1,0 +1,36 @@
+$kind: http-request
+name: Create Time Entry
+url: "{{baseUrl}}/api/time-entries"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"startTime\": \"2026-05-04T08:00:00\",\r
+
+    \  \"endTime\": \"2026-05-04T16:00:00\",\r
+
+    \  \"user\": {\r
+
+    \    \"id\": 4,\r
+
+    \    \"username\": \"test\",\r
+
+    \    \"email\": \"test@test.ch\"\r
+
+    \  },\r
+
+    \  \"project\": {\r
+
+    \    \"id\": 6,\r
+
+    \    \"name\": \"Projekt B\",\r
+
+    \    \"description\": \"Testprojekt fuer die Zeiterfassung\",\r
+
+    \    \"active\": true\r
+
+    \  }\r
+
+    }"
+order: 1777901560558

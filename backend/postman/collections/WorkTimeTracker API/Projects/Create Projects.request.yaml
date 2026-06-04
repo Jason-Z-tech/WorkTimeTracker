@@ -1,0 +1,20 @@
+$kind: http-request
+name: Create Projects
+url: "{{baseUrl}}/api/projects"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Projekt B\",\r
+
+    \  \"description\": \"Testprojekt fuer die Zeiterfassung\",\r
+
+    \  \"active\": true\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+order: 3866589539178475

@@ -1,0 +1,5 @@
+$kind: http-request
+name: Delete Time Entry
+url: "{{baseUrl}}/api/time-entries/1"
+method: DELETE
+order: 4479036131860389

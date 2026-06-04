@@ -1,0 +1,14 @@
+$kind: http-request
+name: Update User
+url: "{{baseUrl}}/api/users/1"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"username\": \"jason-update\",\r
+
+    \  \"email\": \"jason.update@test.ch\"\r
+
+    }"
+order: 1985848198488956

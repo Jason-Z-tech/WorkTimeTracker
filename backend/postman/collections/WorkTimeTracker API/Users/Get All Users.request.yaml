@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get All Users
+url: "{{baseUrl}}/api/users"
+method: GET
+auth:
+  credentials:
+    - key: token
+      value: "{{token}}"
+  type: bearer
+order: 516289828387273

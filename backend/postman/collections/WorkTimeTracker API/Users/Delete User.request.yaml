@@ -1,0 +1,5 @@
+$kind: http-request
+name: Delete User
+url: ""
+method: GET
+order: 3618131305125409

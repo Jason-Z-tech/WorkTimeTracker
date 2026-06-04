@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Report By User
+url: "{{baseUrl}}/api/reports/user/1"
+method: GET
+order: 1777901943863
