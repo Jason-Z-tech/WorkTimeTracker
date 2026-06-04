@@ -1,1 +1,55 @@
-<p>project-list works!</p>
+<section class="page-header">
+  <div>
+    <h1>Projekte</h1>
+    <p>Hier werden alle Projekte aus dem Backend angezeigt.</p>
+  </div>
+
+  <a class="button" routerLink="/projects/new">Neues Projekt</a>
+</section>
+
+@if (isLoading) {
+  <p>Projekte werden geladen...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+@if (!isLoading && projects.length === 0) {
+  <p>Es sind noch keine Projekte vorhanden.</p>
+}
+
+@if (projects.length > 0) {
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Beschreibung</th>
+        <th>Status</th>
+        <th>Aktionen</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (project of projects; track project.id) {
+        <tr>
+          <td>{{ project.id }}</td>
+          <td>{{ project.name }}</td>
+          <td>{{ project.description }}</td>
+          <td>
+            @if (project.active) {
+              <span class="badge active">Aktiv</span>
+            } @else {
+              <span class="badge inactive">Inaktiv</span>
+            }
+          </td>
+          <td class="actions">
+            <a routerLink="/projects/edit/{{ project.id }}">Bearbeiten</a>
+            <button type="button" (click)="deleteProject(project.id)">Löschen</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

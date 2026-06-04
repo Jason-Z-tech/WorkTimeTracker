@@ -1,1 +1,91 @@
-<p>time-entry-detail works!</p>
+<section class="page-header">
+  <div>
+    <h1>
+      @if (isEditMode) {
+        Zeiteintrag bearbeiten
+      } @else {
+        Neuen Zeiteintrag erfassen
+      }
+    </h1>
+
+    <p>Hier kannst du Arbeitszeiten für Benutzer und Projekte erfassen.</p>
+  </div>
+
+  <a class="back-link" routerLink="/time-entries">Zurück zur Übersicht</a>
+</section>
+
+@if (isLoading) {
+  <p>Zeiteintrag wird geladen...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+<form class="form" (ngSubmit)="saveTimeEntry()">
+  <div class="form-group">
+    <label for="userId">Benutzer</label>
+    <select
+      id="userId"
+      name="userId"
+      [(ngModel)]="timeEntryRequest.userId"
+    >
+      <option [ngValue]="0">Bitte auswählen</option>
+
+      @for (user of users; track user.id) {
+        <option [ngValue]="user.id">
+          {{ user.username }} - {{ user.email }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="projectId">Projekt</label>
+    <select
+      id="projectId"
+      name="projectId"
+      [(ngModel)]="timeEntryRequest.projectId"
+    >
+      <option [ngValue]="0">Bitte auswählen</option>
+
+      @for (project of projects; track project.id) {
+        <option [ngValue]="project.id">
+          {{ project.name }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="startTime">Startzeit</label>
+    <input
+      id="startTime"
+      name="startTime"
+      type="datetime-local"
+      [(ngModel)]="timeEntryRequest.startTime"
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="endTime">Endzeit</label>
+    <input
+      id="endTime"
+      name="endTime"
+      type="datetime-local"
+      [(ngModel)]="timeEntryRequest.endTime"
+    >
+  </div>
+
+  <div class="actions">
+    <button type="submit">
+      @if (isEditMode) {
+        Speichern
+      } @else {
+        Erstellen
+      }
+    </button>
+
+    <a routerLink="/time-entries">Abbrechen</a>
+  </div>
+</form>

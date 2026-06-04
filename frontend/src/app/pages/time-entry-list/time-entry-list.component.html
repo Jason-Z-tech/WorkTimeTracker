@@ -1,1 +1,53 @@
-<p>time-entry-list works!</p>
+<section class="page-header">
+  <div>
+    <h1>Zeiteinträge</h1>
+    <p>Hier werden alle erfassten Arbeitszeiten angezeigt.</p>
+  </div>
+
+  <a class="button" routerLink="/time-entries/new">Neuer Zeiteintrag</a>
+</section>
+
+@if (isLoading) {
+  <p>Zeiteinträge werden geladen...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+@if (!isLoading && timeEntries.length === 0) {
+  <p>Es sind noch keine Zeiteinträge vorhanden.</p>
+}
+
+@if (timeEntries.length > 0) {
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Benutzer</th>
+        <th>Projekt</th>
+        <th>Startzeit</th>
+        <th>Endzeit</th>
+        <th>Dauer</th>
+        <th>Aktionen</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (entry of timeEntries; track entry.id) {
+        <tr>
+          <td>{{ entry.id }}</td>
+          <td>{{ entry.user.username }}</td>
+          <td>{{ entry.project.name }}</td>
+          <td>{{ entry.startTime }}</td>
+          <td>{{ entry.endTime }}</td>
+          <td>{{ entry.durationMinutes }} Minuten</td>
+          <td class="actions">
+            <a routerLink="/time-entries/edit/{{ entry.id }}">Bearbeiten</a>
+            <button type="button" (click)="deleteTimeEntry(entry.id)">Löschen</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

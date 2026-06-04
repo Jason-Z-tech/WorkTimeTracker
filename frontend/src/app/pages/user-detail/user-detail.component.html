@@ -1,1 +1,59 @@
-<p>user-detail works!</p>
+<section class="page-header">
+  <div>
+    <h1>
+      @if (isEditMode) {
+        Benutzer bearbeiten
+      } @else {
+        Neuen Benutzer erstellen
+      }
+    </h1>
+
+    <p>Hier kannst du Benutzerdaten erfassen oder ändern.</p>
+  </div>
+
+  <a class="back-link" routerLink="/users">Zurück zur Übersicht</a>
+</section>
+
+@if (isLoading) {
+  <p>Benutzer wird geladen...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+<form class="form" (ngSubmit)="saveUser()">
+  <div class="form-group">
+    <label for="username">Benutzername</label>
+    <input
+      id="username"
+      name="username"
+      type="text"
+      [(ngModel)]="user.username"
+      placeholder="Benutzername eingeben"
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="email">E-Mail</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      [(ngModel)]="user.email"
+      placeholder="E-Mail eingeben"
+    >
+  </div>
+
+  <div class="actions">
+    <button type="submit">
+      @if (isEditMode) {
+        Speichern
+      } @else {
+        Erstellen
+      }
+    </button>
+
+    <a routerLink="/users">Abbrechen</a>
+  </div>
+</form>

@@ -1,1 +1,47 @@
-<p>user-list works!</p>
+<section class="page-header">
+  <div>
+    <h1>Benutzer</h1>
+    <p>Hier werden alle Benutzer aus dem Backend angezeigt.</p>
+  </div>
+
+  <a class="button" routerLink="/users/new">Neuer Benutzer</a>
+</section>
+
+@if (isLoading) {
+  <p>Benutzer werden geladen...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+@if (!isLoading && users.length === 0) {
+  <p>Es sind noch keine Benutzer vorhanden.</p>
+}
+
+@if (users.length > 0) {
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Benutzername</th>
+        <th>E-Mail</th>
+        <th>Aktionen</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (user of users; track user.id) {
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td class="actions">
+            <a routerLink="/users/edit/{{ user.id }}">Bearbeiten</a>
+            <button type="button" (click)="deleteUser(user.id)">Löschen</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

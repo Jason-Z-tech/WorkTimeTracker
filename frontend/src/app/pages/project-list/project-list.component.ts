@@ -1,11 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
+import { Project } from '../../dataaccess/project';
+import { ProjectService } from '../../service/project.service';
 
 @Component({
   selector: 'app-project-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './project-list.component.html',
-  styleUrl: './project-list.component.scss',
+  styleUrl: './project-list.component.scss'
 })
-export class ProjectListComponent {
+export class ProjectListComponent implements OnInit {
 
+  projects: Project[] = [];
+  isLoading = false;
+  errorMessage = '';
+
+  constructor(private projectService: ProjectService) {
+  }
+
+  ngOnInit(): void {
+    this.loadProjects();
+  }
+
+  loadProjects(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.projectService.getAll().subscribe({
+      next: (projects) => {
+        this.projects = projects;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Die Projekte konnten nicht geladen werden.';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  deleteProject(id: number): void {
+    const confirmed = confirm('Möchtest du dieses Projekt wirklich löschen?');
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.projectService.delete(id).subscribe({
+      next: () => {
+        this.loadProjects();
+      },
+      error: () => {
+        this.errorMessage = 'Das Projekt konnte nicht gelöscht werden.';
+      }
+    });
+  }
 }

@@ -1,1 +1,69 @@
-<p>project-detail works!</p>
+<section class="page-header">
+  <div>
+    <h1>
+      @if (isEditMode) {
+        Projekt bearbeiten
+      } @else {
+        Neues Projekt erstellen
+      }
+    </h1>
+
+    <p>Hier kannst du Projektdaten erfassen oder ändern.</p>
+  </div>
+
+  <a class="back-link" routerLink="/projects">Zurück zur Übersicht</a>
+</section>
+
+@if (isLoading) {
+  <p>Projekt wird geladen...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+<form class="form" (ngSubmit)="saveProject()">
+  <div class="form-group">
+    <label for="name">Projektname</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      [(ngModel)]="project.name"
+      placeholder="Projektname eingeben"
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="description">Beschreibung</label>
+    <textarea
+      id="description"
+      name="description"
+      rows="5"
+      [(ngModel)]="project.description"
+      placeholder="Beschreibung eingeben"
+    ></textarea>
+  </div>
+
+  <div class="checkbox-group">
+    <input
+      id="active"
+      name="active"
+      type="checkbox"
+      [(ngModel)]="project.active"
+    >
+    <label for="active">Projekt ist aktiv</label>
+  </div>
+
+  <div class="actions">
+    <button type="submit">
+      @if (isEditMode) {
+        Speichern
+      } @else {
+        Erstellen
+      }
+    </button>
+
+    <a routerLink="/projects">Abbrechen</a>
+  </div>
+</form>

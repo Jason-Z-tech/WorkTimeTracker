@@ -1,1 +1,44 @@
-<p>report-list works!</p>
+<section class="page-header">
+  <div>
+    <h1>Reports</h1>
+    <p>Hier werden die Arbeitszeiten pro Benutzer und Projekt ausgewertet.</p>
+  </div>
+</section>
+
+@if (isLoading) {
+  <p>Reports werden geladen...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+@if (!isLoading && reports.length === 0) {
+  <p>Es sind noch keine Reports vorhanden.</p>
+}
+
+@if (reports.length > 0) {
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Benutzer-ID</th>
+        <th>Benutzername</th>
+        <th>Projekt</th>
+        <th>Minuten total</th>
+        <th>Stunden total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (report of reports; track report.userId + '-' + report.projectName) {
+        <tr>
+          <td>{{ report.userId }}</td>
+          <td>{{ report.username }}</td>
+          <td>{{ report.projectName }}</td>
+          <td>{{ report.totalMinutes }}</td>
+          <td>{{ getHours(report.totalMinutes) }} h</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
