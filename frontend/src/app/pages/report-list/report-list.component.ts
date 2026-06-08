@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 
@@ -14,15 +14,12 @@ import { ReportService } from '../../service/report.service';
 })
 export class ReportListComponent implements OnInit {
 
+  private reportService = inject(ReportService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   reports: TimeEntry[] = [];
   isLoading = false;
   errorMessage = '';
-
-  constructor(
-    private reportService: ReportService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-  }
 
   ngOnInit(): void {
     this.loadReports();

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -17,18 +17,16 @@ import { AppRoles } from '../../../app.roles';
 })
 export class TimeEntryListComponent implements OnInit {
 
+  private timeEntryService = inject(TimeEntryService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
+  public authService = inject(AppAuthService);
+
   timeEntries: TimeEntry[] = [];
   isLoading = false;
   errorMessage = '';
 
   roles = AppRoles;
-
-  constructor(
-    private timeEntryService: TimeEntryService,
-    public authService: AppAuthService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-  }
 
   ngOnInit(): void {
     this.loadTimeEntries();

@@ -11,6 +11,7 @@ describe('AppHeaderComponent', () => {
 
   const authServiceMock = {
     isLoggedIn: vi.fn().mockReturnValue(true),
+    getUsername: vi.fn().mockReturnValue('admin'),
     hasRole: vi.fn().mockReturnValue(true),
     hasAnyRole: vi.fn().mockReturnValue(true),
     login: vi.fn(),

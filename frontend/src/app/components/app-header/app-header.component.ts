@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { AppAuthService } from '../../service/app-auth.service';
@@ -16,6 +16,5 @@ export class AppHeaderComponent {
 
   roles = AppRoles;
 
-  constructor(public authService: AppAuthService) {
-  }
+  public authService = inject(AppAuthService);
 }

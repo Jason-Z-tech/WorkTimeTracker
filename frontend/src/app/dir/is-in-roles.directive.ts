@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 import { AppAuthService } from '../service/app-auth.service';
 
@@ -8,12 +8,9 @@ import { AppAuthService } from '../service/app-auth.service';
 })
 export class IsInRolesDirective {
 
-  constructor(
-    private templateRef: TemplateRef<unknown>,
-    private viewContainer: ViewContainerRef,
-    private authService: AppAuthService
-  ) {
-  }
+  private templateRef = inject(TemplateRef<unknown>);
+  private viewContainer = inject(ViewContainerRef);
+  private authService = inject(AppAuthService);
 
   @Input() set appIsInRoles(roles: string[]) {
     this.viewContainer.clear();

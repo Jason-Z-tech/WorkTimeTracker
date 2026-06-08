@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -16,6 +16,11 @@ import { UserService } from '../../service/user.service';
 })
 export class UserDetailComponent implements OnInit {
 
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   user: AppUser = {
     id: 0,
     username: '',
@@ -25,14 +30,6 @@ export class UserDetailComponent implements OnInit {
   isEditMode = false;
   isLoading = false;
   errorMessage = '';
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private userService: UserService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -12,8 +12,7 @@ export class ProjectService {
 
   private apiUrl = `${environment.apiUrl}/projects`;
 
-  constructor(private http: HttpClient) {
-  }
+  private http = inject(HttpClient);
 
   getAll(): Observable<Project[]> {
     return this.http.get<Project[]>(this.apiUrl);

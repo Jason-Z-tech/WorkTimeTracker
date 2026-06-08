@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -12,8 +12,7 @@ export class UserService {
 
   private apiUrl = `${environment.apiUrl}/users`;
 
-  constructor(private http: HttpClient) {
-  }
+  private http = inject(HttpClient);
 
   getAll(): Observable<AppUser[]> {
     return this.http.get<AppUser[]>(this.apiUrl);

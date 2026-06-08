@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { AppAuthService } from '../../service/app-auth.service';
 
@@ -11,8 +11,7 @@ import { AppAuthService } from '../../service/app-auth.service';
 })
 export class AppLoginComponent {
 
-  constructor(public authService: AppAuthService) {
-  }
+  public authService = inject(AppAuthService);
 
   login(): void {
     this.authService.login();

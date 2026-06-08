@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -22,6 +22,13 @@ import { UserService } from '../../service/user.service';
 })
 export class TimeEntryDetailComponent implements OnInit {
 
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private timeEntryService = inject(TimeEntryService);
+  private projectService = inject(ProjectService);
+  private userService = inject(UserService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   timeEntryRequest: TimeEntryRequest = {
     startTime: '',
     endTime: '',
@@ -37,16 +44,6 @@ export class TimeEntryDetailComponent implements OnInit {
   errorMessage = '';
 
   private timeEntryId = 0;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private timeEntryService: TimeEntryService,
-    private projectService: ProjectService,
-    private userService: UserService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-  }
 
   ngOnInit(): void {
     this.loadUsers();

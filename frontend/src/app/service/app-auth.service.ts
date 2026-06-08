@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { KeycloakService } from './keycloak.service';
 
@@ -7,8 +7,7 @@ import { KeycloakService } from './keycloak.service';
 })
 export class AppAuthService {
 
-  constructor(private keycloakService: KeycloakService) {
-  }
+  private keycloakService = inject(KeycloakService);
 
   isLoggedIn(): boolean {
     return this.keycloakService.isLoggedIn();
