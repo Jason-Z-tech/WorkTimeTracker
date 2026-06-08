@@ -185,6 +185,7 @@ Das Dashboard dient als zentraler Einstiegspunkt.
 
 Von hier aus können alle Verwaltungsbereiche geöffnet werden.
 
+#### Dashboard Ansicht
 ![Dashboard](frontend/screenshots/dashboard.png)
 
 ---
@@ -198,8 +199,10 @@ Funktionen:
 - Projekte bearbeiten
 - Projekte löschen
 
+#### Projektübersicht
 ![Projektübersicht](frontend/screenshots/Projekte.png)
 
+#### Projekt bearbeiten
 ![Projekt bearbeiten](frontend/screenshots/Projekte2.png)
 ---
 
@@ -212,8 +215,10 @@ Funktionen:
 - Zeiteinträge bearbeiten
 - Zeiteinträge löschen
 
+#### Zeitneinträge Übersicht
 ![Zeiteinträge](frontend/screenshots/Zeiteinträge.png)
 
+#### Zeiteinträge bearbeiten
 ![Zeiteintrag bearbeiten](frontend/screenshots/Zeiteinträge2.png)
 
 ---
@@ -231,8 +236,10 @@ Hinweis:
 Die Login-Benutzer werden über Keycloak verwaltet.
 Die hier erfassten Benutzer dienen der fachlichen Zuordnung von Zeiteinträgen.
 
+#### Benutzer Übersicht
 ![Benutzerübersicht](frontend/screenshots/Benutzer.png)
 
+#### Benutzer bearbeiten
 ![Benutzer bearbeiten](frontend/screenshots/Benutzer2.png)
 
 ---
@@ -245,6 +252,7 @@ Funktionen:
 - Übersicht nach Benutzern
 - Übersicht nach Projekten
 
+#### Report Übersicht
 ![Reports](frontend/screenshots/Reports.png)
 
 ---
@@ -267,7 +275,7 @@ Testergebnis:
 43 Tests erfolgreich
 0 Fehler
 ```
-
+#### Unit Tests
 ![Unit Tests](frontend/screenshots/tests.png)
 
 ---
