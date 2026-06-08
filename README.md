@@ -185,7 +185,7 @@ Das Dashboard dient als zentraler Einstiegspunkt.
 
 Von hier aus können alle Verwaltungsbereiche geöffnet werden.
 
-![Dashboard](docs/screenshots/dashboard.png)
+![Dashboard](frontend/screenshots/dashboard.png)
 
 ---
 
@@ -198,10 +198,9 @@ Funktionen:
 - Projekte bearbeiten
 - Projekte löschen
 
-![Projektübersicht](docs/screenshots/projects-list.png)
+![Projektübersicht](frontend/screenshots/Projekte.png)
 
-![Projekt bearbeiten](docs/screenshots/project-edit.png)
-
+![Projekt bearbeiten](frontend/screenshots/Projekte2.png)
 ---
 
 ### Zeiteinträge
@@ -213,9 +212,9 @@ Funktionen:
 - Zeiteinträge bearbeiten
 - Zeiteinträge löschen
 
-![Zeiteinträge](docs/screenshots/timeentries-list.png)
+![Zeiteinträge](frontend/screenshots/Zeiteinträge.png)
 
-![Zeiteintrag bearbeiten](docs/screenshots/timeentry-edit.png)
+![Zeiteintrag bearbeiten](frontend/screenshots/Zeiteinträge2.png)
 
 ---
 
@@ -232,9 +231,9 @@ Hinweis:
 Die Login-Benutzer werden über Keycloak verwaltet.
 Die hier erfassten Benutzer dienen der fachlichen Zuordnung von Zeiteinträgen.
 
-![Benutzerübersicht](docs/screenshots/users-list.png)
+![Benutzerübersicht](frontend/screenshots/Benutzer.png)
 
-![Benutzer bearbeiten](docs/screenshots/user-edit.png)
+![Benutzer bearbeiten](frontend/screenshots/Benutzer2.png)
 
 ---
 
@@ -246,7 +245,7 @@ Funktionen:
 - Übersicht nach Benutzern
 - Übersicht nach Projekten
 
-![Reports](docs/screenshots/reports.png)
+![Reports](frontend/screenshots/Reports.png)
 
 ---
 
@@ -269,7 +268,7 @@ Testergebnis:
 0 Fehler
 ```
 
-![Unit Tests](docs/screenshots/unit-tests.png)
+![Unit Tests](frontend/screenshots/tests.png)
 
 ---
 
