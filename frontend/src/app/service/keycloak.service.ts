@@ -12,19 +12,19 @@ export class KeycloakService {
     clientId: 'WorkTime'
   });
 
-    async init(): Promise<boolean> {
+  async init(): Promise<boolean> {
     const authenticated = await this.keycloak.init({
-        onLoad: 'check-sso',
-        checkLoginIframe: false,
-        pkceMethod: 'S256'
+      onLoad: 'check-sso',
+      checkLoginIframe: false,
+      pkceMethod: 'S256'
     });
 
     if (authenticated && this.keycloak.token) {
-        localStorage.setItem('access_token', this.keycloak.token);
+      localStorage.setItem('access_token', this.keycloak.token);
     }
 
     return authenticated;
-    }
+  }
 
   login(): void {
     this.keycloak.login({
@@ -46,6 +46,11 @@ export class KeycloakService {
 
   getToken(): string | undefined {
     return this.keycloak.token;
+  }
+
+  getUsername(): string {
+    const tokenParsed = this.keycloak.tokenParsed as any;
+    return tokenParsed?.preferred_username ?? '';
   }
 
   getRoles(): string[] {

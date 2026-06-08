@@ -1,6 +1,6 @@
 <div class="login-box">
   @if (authService.isLoggedIn()) {
-    <p>Angemeldet: Ja</p>
+    <p>Angemeldet: {{ authService.getUsername() }}</p>
     <button type="button" (click)="logout()">Logout</button>
   } @else {
     <p>Angemeldet: Nein</p>

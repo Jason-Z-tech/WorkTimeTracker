@@ -1,61 +1,116 @@
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 34px;
+  letter-spacing: -0.8px;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--muted);
 }
 
 .back-link {
-  color: #2563eb;
+  color: var(--primary);
   text-decoration: none;
+  font-weight: 700;
+}
+
+.back-link:hover {
+  color: var(--primary-dark);
 }
 
 .form {
-  max-width: 600px;
-  background-color: #f9fafb;
-  padding: 24px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
+  max-width: 720px;
+  background-color: var(--surface);
+  padding: 28px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-  font-weight: bold;
-  margin-bottom: 6px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #334155;
 }
 
-.form-group input {
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
   font-size: 15px;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  font-weight: 700;
 }
 
 .actions {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   align-items: center;
 }
 
 .actions button {
-  background-color: #2563eb;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: white;
   border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
+  padding: 12px 18px;
+  border-radius: 12px;
   cursor: pointer;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.actions button:hover {
+  transform: translateY(-2px);
 }
 
 .actions a {
-  color: #374151;
+  color: #475569;
   text-decoration: none;
+  font-weight: 700;
 }
 
 .error {
-  color: #dc2626;
+  color: var(--danger);
+  font-weight: 700;
+  background: #fee2e2;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
 }

@@ -1,64 +1,81 @@
 .dashboard {
-  max-width: 1100px;
+  max-width: 1180px;
 }
 
 .hero {
-  background-color: #f3f4f6;
-  border-radius: 14px;
-  padding: 32px;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(14, 165, 233, 0.08)),
+    var(--surface);
+  border-radius: 24px;
+  padding: 42px;
   margin-bottom: 28px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .hero h1 {
   margin-top: 0;
-  font-size: 36px;
-  color: #111827;
+  margin-bottom: 12px;
+  font-size: 44px;
+  color: var(--text);
+  letter-spacing: -1px;
 }
 
 .hero p {
-  max-width: 700px;
-  color: #4b5563;
-  font-size: 17px;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: 20px;
 }
 
 .card {
   display: block;
-  background-color: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 22px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 26px;
   text-decoration: none;
-  color: #111827;
-  transition: 0.2s;
+  color: var(--text);
+  box-shadow: var(--shadow);
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+  border-color: rgba(37, 99, 235, 0.35);
 }
 
 .card h2 {
   margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 24px;
 }
 
 .card p {
-  color: #4b5563;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+  .hero {
+    padding: 28px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
   .dashboard-grid {
     grid-template-columns: 1fr;
   }

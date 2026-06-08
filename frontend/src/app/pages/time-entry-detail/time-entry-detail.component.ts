@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 import { TimeEntry } from '../../dataaccess/time-entry';
 import { TimeEntryRequest } from '../../dataaccess/time-entry-request';
@@ -42,7 +43,8 @@ export class TimeEntryDetailComponent implements OnInit {
     private router: Router,
     private timeEntryService: TimeEntryService,
     private projectService: ProjectService,
-    private userService: UserService
+    private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -63,6 +65,7 @@ export class TimeEntryDetailComponent implements OnInit {
     this.userService.getAll().subscribe({
       next: (users) => {
         this.users = users;
+        this.changeDetectorRef.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Benutzer konnten nicht geladen werden.';
@@ -74,6 +77,7 @@ export class TimeEntryDetailComponent implements OnInit {
     this.projectService.getAll().subscribe({
       next: (projects) => {
         this.projects = projects;
+        this.changeDetectorRef.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Projekte konnten nicht geladen werden.';
@@ -83,23 +87,28 @@ export class TimeEntryDetailComponent implements OnInit {
 
   loadTimeEntry(id: number): void {
     this.isLoading = true;
+    this.errorMessage = '';
 
-    this.timeEntryService.getById(id).subscribe({
-      next: (timeEntry: TimeEntry) => {
-        this.timeEntryRequest = {
-          startTime: this.formatDateTimeForInput(timeEntry.startTime),
-          endTime: this.formatDateTimeForInput(timeEntry.endTime),
-          userId: timeEntry.user.id,
-          projectId: timeEntry.project.id
-        };
-
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Der Zeiteintrag konnte nicht geladen werden.';
-        this.isLoading = false;
-      }
-    });
+    this.timeEntryService.getById(id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (timeEntry: TimeEntry) => {
+          this.timeEntryRequest = {
+            startTime: this.formatDateTimeForInput(timeEntry.startTime),
+            endTime: this.formatDateTimeForInput(timeEntry.endTime),
+            userId: timeEntry.user.id,
+            projectId: timeEntry.project.id
+          };
+        },
+        error: () => {
+          this.errorMessage = 'Der Zeiteintrag konnte nicht geladen werden.';
+        }
+      });
   }
 
   saveTimeEntry(): void {

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 import { Project } from '../../dataaccess/project';
 import { ProjectService } from '../../service/project.service';
@@ -29,7 +30,8 @@ export class ProjectDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -44,17 +46,23 @@ export class ProjectDetailComponent implements OnInit {
 
   loadProject(id: number): void {
     this.isLoading = true;
+    this.errorMessage = '';
 
-    this.projectService.getById(id).subscribe({
-      next: (project) => {
-        this.project = project;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Das Projekt konnte nicht geladen werden.';
-        this.isLoading = false;
-      }
-    });
+    this.projectService.getById(id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (project) => {
+          this.project = project;
+        },
+        error: () => {
+          this.errorMessage = 'Das Projekt konnte nicht geladen werden.';
+        }
+      });
   }
 
   saveProject(): void {

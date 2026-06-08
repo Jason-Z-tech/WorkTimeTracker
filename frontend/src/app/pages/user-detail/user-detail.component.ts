@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 import { AppUser } from '../../dataaccess/app-user';
 import { UserService } from '../../service/user.service';
@@ -28,7 +29,8 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -43,17 +45,23 @@ export class UserDetailComponent implements OnInit {
 
   loadUser(id: number): void {
     this.isLoading = true;
+    this.errorMessage = '';
 
-    this.userService.getById(id).subscribe({
-      next: (user) => {
-        this.user = user;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Der Benutzer konnte nicht geladen werden.';
-        this.isLoading = false;
-      }
-    });
+    this.userService.getById(id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (user) => {
+          this.user = user;
+        },
+        error: () => {
+          this.errorMessage = 'Der Benutzer konnte nicht geladen werden.';
+        }
+      });
   }
 
   saveUser(): void {

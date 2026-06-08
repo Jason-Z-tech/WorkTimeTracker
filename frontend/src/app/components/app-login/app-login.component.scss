@@ -2,18 +2,26 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
 }
 
 .login-box p {
   margin: 0;
   font-size: 14px;
+  color: #e5e7eb;
+  font-weight: 600;
 }
 
 .login-box button {
   border: none;
-  background-color: #4b5563;
+  background-color: rgba(255, 255, 255, 0.14);
   color: white;
-  padding: 7px 10px;
-  border-radius: 6px;
+  padding: 9px 13px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: 700;
+}
+
+.login-box button:hover {
+  background-color: rgba(255, 255, 255, 0.24);
 }

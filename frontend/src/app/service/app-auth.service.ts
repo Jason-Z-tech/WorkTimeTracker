@@ -14,6 +14,10 @@ export class AppAuthService {
     return this.keycloakService.isLoggedIn();
   }
 
+  getUsername(): string {
+    return this.keycloakService.getUsername();
+  }
+
   hasRole(role: string): boolean {
     return this.keycloakService.hasRole(role);
   }
