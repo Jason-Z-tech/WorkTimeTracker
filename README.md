@@ -100,7 +100,7 @@ Vollzugriff auf alle Funktionen.
 
 ```bash
 cd backend
-mvn spring-boot:run
+.\mvnw spring-boot:run
 ```
 
 Backend läuft auf:
@@ -125,7 +125,15 @@ http://localhost:4200
 
 ### Keycloak starten
 
-Realm:
+Keycloak muss lokal auf Port `8080` laufen.
+
+Danach muss der Realm importiert werden:
+
+```text
+keycloak/realm-export.json
+```
+
+Der Realm heisst:
 
 ```text
 WorkTimeApp
